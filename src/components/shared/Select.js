@@ -1,4 +1,5 @@
 import React, { Component, PropTypes } from 'react';
+import classNames from 'classnames';
 
 export default class extends Component {
   static propTypes = {
@@ -7,6 +8,7 @@ export default class extends Component {
       label: PropTypes.string,
     })),
     onChange: PropTypes.func,
+    label: PropTypes.string,
   };
 
   state = {
@@ -23,13 +25,14 @@ export default class extends Component {
   }
 
   render() {
-    const { items } = this.props;
+    const { items, className, label } = this.props;
     const { value } = this.state;
     const selectedItem = items.find(item => item.key === value);
 
+    const selectClassNames = classNames('uk-button uk-form-select', className);
     return (
-      <div className="uk-button uk-form-select">
-        <span>{selectedItem ? selectedItem.label : 'Select'}</span>
+      <div className={selectClassNames}>
+        <span>{selectedItem ? selectedItem.label : (label || 'Select')}</span>
         {' '}
         <i className="uk-icon-caret-down" />
         <select
